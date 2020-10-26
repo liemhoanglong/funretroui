@@ -1,6 +1,6 @@
 export class boardAPI{
     static async getAllBoard(){
-        const res = await fetch("http://localhost:3000/boards", {
+        const res = await fetch("https://funretroapi.herokuapp.com/boards", {
             method: "GET"
         })
         const data = await res.json();
