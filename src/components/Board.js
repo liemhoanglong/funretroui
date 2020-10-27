@@ -1,13 +1,12 @@
-import React from 'react';
-import {Button, Navbar, Nav, Form, FormControl, Row, Col, Container, Card, CardGroup } from 'react-bootstrap'
+import { Card, CardGroup } from 'react-bootstrap'
 
 const Board = (props) => {
     console.log(props)
     return(
         <>
             { props.type === "1" ? ( props.data.type.toString() === props.type ? 
-                <div className="row">
-                    <Card style={{ width:"100%", paddingBottom:"15px", border:"none" }}>
+                <div className="row" style={{ paddingBottom:"15px"}} >
+                    <Card style={{ width:"100%", border:"none" }}>
                         <Card.Body style={{ backgroundColor: "#E91E63", color: "white", padding: "0.5rem"}}>
                             <CardGroup>
                                 <span style={{ width: '96%', textAlign:'left' }}>{props.data.name}</span>
@@ -43,8 +42,8 @@ const Board = (props) => {
                 </div>
                 : '')
                 : props.type === "2" ? ( props.data.type.toString() === props.type ? 
-                <div className="row">
-                    <Card style={{width:"100%", paddingBottom:"15px", border:"none" }}>
+                <div className="row" style={{ paddingBottom:"15px"}} >
+                    <Card style={{width:"100%", border:"none" }}>
                         <Card.Body style={{ backgroundColor: "#FF5722", color: "white", padding: "0.5rem"}}>
                             <CardGroup>
                                 <span style={{ width: '96%', textAlign:'left' }}>{props.data.name}</span>
@@ -80,8 +79,8 @@ const Board = (props) => {
                 </div> 
                 : '')
                 : props.type === "3" ? ( props.data.type.toString() === props.type ? 
-                <div className="row">
-                    <Card style={{width:"100%", paddingBottom:"15px", border:"none" }}>
+                <div className="row" style={{ paddingBottom:"15px"}}>
+                    <Card style={{width:"100%", border:"none" }}>
                         <Card.Body style={{ backgroundColor: "#009688", color: "white", padding: "0.5rem"}}>
                             <CardGroup>
                                 <span style={{ width: '96%', textAlign:'left' }}>{props.data.name}</span>

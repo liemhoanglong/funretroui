@@ -16,7 +16,7 @@ function App() {
     fetchAll();
   }, [])
   return (
-    <div className="App" style={{backgroundColor:'#FDFDFD', height:"100vh"}}>
+    <div className="App" style={{backgroundColor:'#F3F3F3', height:"100vh"}}>
       <header>
         <Navbar bg="primary" variant="dark">
           <Navbar.Brand href="#home">Funretro</Navbar.Brand>
@@ -43,11 +43,11 @@ function App() {
                   <h5 style={{float: "left"}}>Went well</h5>  
                 </div>
                 <div className="row" style={{marginBottom:"10px"}}>
-                  <Button variant="outline-secondary" style={{width:"100%"}}>
+                  <button type="button" className="btn-add btn btn-secondary" style={{width:"100%", borderColor: "#DDDDDD" }}>
                     <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-plus" fill="black" xmlns="http://www.w3.org/2000/svg">
                       <path fillRule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                     </svg>
-                  </Button>
+                  </button>
                   <hr/>
                 </div>
                 {boards.map((board, i) => {
@@ -63,11 +63,11 @@ function App() {
                   <h5 style={{float: "left"}}>To improve</h5>  
                 </div>
                 <div className="row" style={{marginBottom:"10px"}}>
-                  <Button variant="outline-secondary" style={{width:"100%"}}>
+                  <button type="button" className="btn-add btn btn-secondary" style={{width:"100%", borderColor: "#DDDDDD" }}>
                     <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-plus" fill="black" xmlns="http://www.w3.org/2000/svg">
                       <path fillRule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                     </svg>
-                  </Button>
+                  </button>
                   <hr/>
                 </div>
                 {boards.map((board, i) => {
@@ -83,11 +83,11 @@ function App() {
                   <h5 style={{float: "left"}}>Action Items</h5>  
                 </div>
                 <div className="row" style={{marginBottom:"10px"}}>
-                  <Button variant="outline-secondary" style={{width:"100%"}}>
+                  <button type="button" className="btn-add btn btn-secondary" style={{width:"100%", borderColor: "#DDDDDD" }}>
                     <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-plus" fill="black" xmlns="http://www.w3.org/2000/svg">
                       <path fillRule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                     </svg>
-                  </Button>
+                  </button>
                   <hr/>
                 </div>
                 {boards.map((board, i) => {
