@@ -1,6 +1,8 @@
 export class bigBoardAPI{
     static async getAllBigBoard(){
-        const res = await fetch("https://funretroapi.herokuapp.com/bigBoards", {
+        // const link = "https://funretroapi.herokuapp.com/bigBoards";
+        const link = "http://localhost:3000/bigBoards";
+        const res = await fetch(link, {
             method: "GET"
         })
         const data = await res.json();

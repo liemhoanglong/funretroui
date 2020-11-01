@@ -46,23 +46,23 @@
   border-color: none !important;
 }
 
-.board-hover{
+.big-board-hover{
   color: black;
 }
 
-.board-hover:hover{
+.big-board-hover:hover{
   background-color: #DDDDDD;
   text-decoration: none !important;
   color: black;
 }
 
-.add-board{
+.add-big-board{
   background-color: 0;  
   color: black;
   border: 2px dashed #ccc;
 }
 
-.add-board:hover{
+.add-big-board:hover{
   color: #FF5722;
   border: 2px dashed #FF5722;
 }
