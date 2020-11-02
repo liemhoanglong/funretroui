@@ -66,3 +66,11 @@
   color: #FF5722;
   border: 2px dashed #FF5722;
 }
+
+.login-button{
+  color: white;
+}
+
+.login-button:hover{
+  text-decoration: none;
+}

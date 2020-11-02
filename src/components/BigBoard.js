@@ -1,12 +1,13 @@
 import '../App.css';
 import {Button, Row, Col, Container, Card } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 
 const BigBoard = (props) => {
   return(
     <>
-      <Col key={props.data.id} md={3} style={{ padding: '10px' }}>
+      <Col key={props.data._id} md={3} style={{ padding: '10px' }}>
         <Card style={{ width: '100%' }}>
-          <a className="big-board-hover" href="/task" >
+          <Link className="big-board-hover" exact to ={`/board/${props.author}/${props.data._id}`} >
             <Card.Body >
               <Card.Title style={{ textAlign: 'left', fontSize:'18px' }}>{props.data.name}</Card.Title>
               <Container>
@@ -22,7 +23,7 @@ const BigBoard = (props) => {
                 </Card.Text>
               </Container>
             </Card.Body>
-            </a>
+          </Link>
             <Row >
               <Col key="1" style={{ padding:"0px 0px 0px 15px" }}>
                 <Button variant="outline-light" href="#" style={{ color:"purple", width:"100%", paddingRight:"0px" }}>URl</Button>
