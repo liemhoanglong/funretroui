@@ -113,7 +113,7 @@ const Dashboard = ({ match }) =>{
                 aria-describedby="basic-addon2"
               />
               <InputGroup.Append>
-                <Button onClick={ () => addBigBoard(input) } variant="warning">Add Board</Button>
+                <Button onClick={() => addBigBoard(input)} variant="warning">Add Board</Button>
               </InputGroup.Append>
             </InputGroup>
 
