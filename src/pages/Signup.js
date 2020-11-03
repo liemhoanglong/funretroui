@@ -37,8 +37,8 @@ const Signup = ({ match }) =>{
     <>
       <Container fluid>
         <Row>
-          <Col></Col>
-          <Col>
+          <Col md={3} lg={4}></Col>
+          <Col md={6} lg={4}>
             <Container style={{ backgroundColor: "white", padding: "2rem 2rem"}}>
               <h3>Sign up</h3>
               <Form>
@@ -58,7 +58,7 @@ const Signup = ({ match }) =>{
               <br/>
             </Container>
           </Col>
-          <Col></Col>
+          <Col md={3} lg={4}></Col>
         </Row>
       </Container>
     </>

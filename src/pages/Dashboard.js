@@ -5,8 +5,9 @@ import BigBoard from '../components/BigBoard';
 import bigBoardAPI from '../api/bigBoard.api';
 
 
-import {Button, Form, FormControl, Row, Col, Container } from 'react-bootstrap'
+import {Button, Form, FormControl, Row, Col, Container, Card } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
    
 const Dashboard = ({ match }) =>{
   const [bigBoards, setBigBoards] = useState([])
@@ -45,11 +46,11 @@ const Dashboard = ({ match }) =>{
       <Container fluid style={{ padding: '30px 40px' }}>
         <Row>
           <Col md={3} style={{ padding: '10px' }}>
-            <a className="big-board-hover" href="#" >
-              <div className="add-big-board" style={{ width: '100%', height: "5rem", padding:"2rem", }}>
+            <Link className="big-board-hover" to="#" >
+              <Card className="add-big-board" style={{ width: '100%', height: "5rem", padding:"2rem", }}>
                 <h6 style={{ textDecoration:"none" }}>Add Board</h6>
-              </div>
-            </a>
+              </Card>
+            </Link>
           </Col>
           {bigBoards.map((bigBoard, i) => {
             return (

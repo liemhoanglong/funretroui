@@ -57,7 +57,7 @@
 }
 
 .add-big-board{
-  background-color: 0;  
+  background-color: none !important;  
   color: black;
   border: 2px dashed #ccc;
 }

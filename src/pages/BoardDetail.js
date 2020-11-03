@@ -48,7 +48,7 @@ const BoardDetail = ({ match }) =>{
       }
     } 
     fetchAll();
-  }, [reset])
+  }, [])
 
 
   useEffect(() => {
@@ -99,27 +99,23 @@ const BoardDetail = ({ match }) =>{
   };
 
   const editBoard = async (id, data) =>{
-    setEdit({
+    await setEdit({
       id: id,
       value: data
     });
-    // await console.log(id)
-    // await console.log(data)
-    // await setInput(data);
   }
 
   const doneBoard = async (id, data) =>{
     // if (!input || /^\s*$/.test(input)) {
     //   return;
     // }
-    setEdit({
+    await setEdit({
       id: null,
       value: ''
     });
     const temp = {name: data};
     await boardAPI.edit(id, temp);
     setReset(!reset);
-
   }
 
   return(
@@ -128,11 +124,11 @@ const BoardDetail = ({ match }) =>{
         <Container fluid style={{ padding: '30px 40px' }}>
           <Row>
             <Col>
-              <div className="container">
-                <div className="row">
+              <Container className="container">
+                <Row className="row">
                   <h5 style={{float: "left"}}>Went well</h5>  
-                </div>
-                <div className="row" style={{marginBottom:"10px"}}>
+                </Row>
+                <Row className="row" style={{marginBottom:"10px"}}>
                   {/* <button type="button" className="btn-add btn btn-secondary" style={{width:"100%", borderColor: "#DDDDDD" }}>
                     <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-plus" fill="black" xmlns="http://www.w3.org/2000/svg">
                       <path fillRule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
@@ -152,20 +148,20 @@ const BoardDetail = ({ match }) =>{
                       
                     </InputGroup.Append>
                   </InputGroup>
-                </div>
+                </Row>
                 {boards.map((board, i) => {
                   return (
                     <Board key={i} data={board} edit={edit} delBoard={delBoard} editBoard={editBoard} doneBoard={doneBoard} type='1'/>
                   )
                 })}
-              </div>
+              </Container>
             </Col>
             <Col>
-            <div className="container">
-                <div className="row">
+            <Container className="container">
+                <Row className="row">
                   <h5 style={{float: "left"}}>To improve</h5>  
-                </div>
-                <div className="row" style={{marginBottom:"10px"}}>
+                </Row>
+                <Row className="row" style={{marginBottom:"10px"}}>
                   <InputGroup className="mb-3">
                     <FormControl
                       placeholder="abc"
@@ -179,20 +175,20 @@ const BoardDetail = ({ match }) =>{
                       
                     </InputGroup.Append>
                   </InputGroup>
-                </div>
+                </Row>
                 {boards.map((board, i) => {
                   return (
-                    <Board key={i}  data={board} type="2"/>
+                    <Board key={i}  data={board} edit={edit} delBoard={delBoard} editBoard={editBoard} doneBoard={doneBoard} type='2'/>
                   )
                 })}
-              </div>
+              </Container>
             </Col>
             <Col>
-            <div className="container">
-                <div className="row">
+            <Container className="container">
+                <Row className="row">
                   <h5 style={{float: "left"}}>Action Items</h5>  
-                </div>
-                <div className="row" style={{marginBottom:"10px"}}>
+                </Row>
+                <Row className="row" style={{marginBottom:"10px"}}>
                   <InputGroup className="mb-3">
                     <FormControl
                       placeholder="abc"
@@ -207,13 +203,13 @@ const BoardDetail = ({ match }) =>{
                     </InputGroup.Append>
                   </InputGroup>
                   <hr/>
-                </div>
+                </Row>
                 {boards.map((board, i) => {
                   return (
-                    <Board key={i} data={board} type="3"/>
+                    <Board key={i} data={board} edit={edit} delBoard={delBoard} editBoard={editBoard} doneBoard={doneBoard} type='3'/>
                   )
                 })}
-              </div>
+              </Container>
             </Col>
           </Row> 
         </Container>

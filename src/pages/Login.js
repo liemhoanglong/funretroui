@@ -37,8 +37,8 @@ const Login = ({ match }) =>{
     <>
       <Container fluid>
         <Row>
-          <Col></Col>
-          <Col>
+          <Col md={3} lg={4}></Col>
+          <Col md={6} lg={4} >
             <Container style={{ backgroundColor: "white", padding: "2rem 2rem"}}>
               <h3>Login</h3>
               <Form>
@@ -61,7 +61,7 @@ const Login = ({ match }) =>{
               <Link to="/signup" style={{ float: "right" }} >Or Register</Link>
             </Container>
           </Col>
-          <Col></Col>
+          <Col md={3} lg={4}></Col>
         </Row>
       </Container>
     </>
