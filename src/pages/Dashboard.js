@@ -5,14 +5,27 @@ import BigBoard from '../components/BigBoard';
 import bigBoardAPI from '../api/bigBoard.api';
 
 
-import {Button, Form, FormControl, Row, Col, Container, Card } from 'react-bootstrap'
+import {Button, Form, FormControl, Row, Col, Container, Card, InputGroup } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
    
 const Dashboard = ({ match }) =>{
-  const [bigBoards, setBigBoards] = useState([])
-  let id = "5f981b31face1e2ddb883a4c";
+  const [bigBoards, setBigBoards] = useState([]);
+  const [reset, setReset] = useState(true);
+
+  const [input, setInput] = useState('');
+
+  const [edit, setEdit] = useState({
+    id: null,
+    value: ''
+  });
+
   
+  const handleChange = e => {
+    setInput(e.target.value);
+  };  
+
+  let id = "5f981b31face1e2ddb883a4c";
   useEffect(() => {
     const fetchAll = async () => {
       try {
@@ -26,8 +39,46 @@ const Dashboard = ({ match }) =>{
       }
     } 
     fetchAll();
-  }, [])
+  }, [reset])
 
+  const addBigBoard = async (txt) => {
+    if (!txt || /^\s*$/.test(txt)) {
+      return;
+    }
+    // nhớ chỉnh về author ID khi làm login
+    // const data = {name: txt, authorId: authorId};
+    const data = {name: txt, authorId: id};
+    const res = await bigBoardAPI.add(data);
+    setReset(!reset);
+  };
+
+  
+  const delBigBoard = async (id) => {
+    await bigBoardAPI.delete(id);
+    setReset(!reset);
+
+  };
+
+  const editBigBoard = async (id, data) =>{
+    await setEdit({
+      id: id,
+      value: data
+    });
+  }
+
+  const doneBigBoard = async (id, data) =>{
+    // if (!input || /^\s*$/.test(input)) {
+    //   return;
+    // }
+    await setEdit({
+      id: null,
+      value: ''
+    });
+
+    const temp = {name: data};
+    await bigBoardAPI.edit(id, temp);
+    setReset(!reset);
+  }
 
   return(
     <>
@@ -46,15 +97,38 @@ const Dashboard = ({ match }) =>{
       <Container fluid style={{ padding: '30px 40px' }}>
         <Row>
           <Col md={3} style={{ padding: '10px' }}>
-            <Link className="big-board-hover" to="#" >
+            {/* <Link className="big-board-hover" onClick={() => addBigBoard(input, 1)} >
               <Card className="add-big-board" style={{ width: '100%', height: "5rem", padding:"2rem", }}>
                 <h6 style={{ textDecoration:"none" }}>Add Board</h6>
+
               </Card>
-            </Link>
+
+            </Link> */}
+            <InputGroup className="mb-3">
+              <FormControl
+                placeholder="abc"
+                value={input}
+                onChange={handleChange}
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+              />
+              <InputGroup.Append>
+                <Button onClick={ () => addBigBoard(input) } variant="warning">Add Board</Button>
+              </InputGroup.Append>
+            </InputGroup>
+
           </Col>
           {bigBoards.map((bigBoard, i) => {
             return (
-              <BigBoard key={i} author={id} data={bigBoard}/>
+              <BigBoard 
+                key={i} 
+                author={id} 
+                data={bigBoard} 
+                edit={edit} 
+                delBigBoard={delBigBoard} 
+                editBigBoard={editBigBoard} 
+                doneBigBoard={doneBigBoard}
+              />
             )
           })}
         </Row> 

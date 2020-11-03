@@ -45,8 +45,14 @@ const Signup = ({ match }) =>{
                 <Form.Group controlId="formBasicEmail">
                   <Form.Control type="email" placeholder="Enter email" />
                 </Form.Group>
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Control type="text" placeholder="Enter your full name" />
+                </Form.Group>
                 <Form.Group controlId="formBasicPassword">
                   <Form.Control type="password" placeholder="Password" />
+                </Form.Group>
+                <Form.Group controlId="formBasicPassword">
+                  <Form.Control type="password" placeholder="Retype Password" />
                 </Form.Group>
                 {/* <Form.Group controlId="formBasicCheckbox">
                   <Form.Check type="checkbox" label="Check me out" />

@@ -43,6 +43,7 @@ const Board = (props) => {
           :
             <Card style={{ width: "100%", border: "5px" }}>
               <Card.Body style={{ backgroundColor: "E91E63", color: "white", padding: "0.5rem" }}>
+                <Card.Text style={{ textAlign: 'left', fontSize:'18px' }}>{props.data.name}</Card.Text>
                 <CardGroup>
                   <input 
                     value={input} 
@@ -51,7 +52,7 @@ const Board = (props) => {
                   />
                 </CardGroup>
                 <Card.Link onClick={() => props.doneBoard(props.data._id, input)}>
-                  <Button variant="success" style={{ height: "20px", marginBottom: "0px", paddingTop: "0", fontSize: "12px"}} >Done</Button>
+                  <Button variant="success" style={{ height: "20px", marginTop: "5px", float: "left", paddingTop: "0", fontSize: "12px"}} >Done</Button>
                 </Card.Link>
                 
                 <CardGroup style={{ float: 'right' }}>
@@ -98,6 +99,7 @@ const Board = (props) => {
             :
               <Card style={{ width: "100%", border: "none" }}>
                 <Card.Body style={{ backgroundColor: "#FF5722", color: "white", padding: "0.5rem" }}>
+                  <Card.Text style={{ textAlign: 'left', fontSize:'18px' }}>{props.data.name}</Card.Text>
                   <CardGroup>
                     <input 
                       value={input} 
@@ -106,7 +108,7 @@ const Board = (props) => {
                     />
                   </CardGroup>
                   <Card.Link onClick={() => props.doneBoard(props.data._id, input)}>
-                    <Button variant="success" style={{ height: "20px", marginBottom: "0px", paddingTop: "0", fontSize: "12px"}} >Done</Button>
+                    <Button variant="success" style={{ height: "20px", marginTop: "5px", float: "left", paddingTop: "0", fontSize: "12px"}} >Done</Button>
                   </Card.Link>
                   
                   <CardGroup style={{ float: 'right' }}>
@@ -154,6 +156,7 @@ const Board = (props) => {
                 <Card style={{ width: "100%", border: "none" }}>
                   <Card.Body style={{ backgroundColor: "#009688", color: "white", padding: "0.5rem" }}>
                     <CardGroup>
+                      <Card.Text style={{ textAlign: 'left', fontSize:'18px' }}>{props.data.name}</Card.Text>
                       <input 
                         value={input} 
                         style={{ width: "100%"}} 
@@ -161,7 +164,7 @@ const Board = (props) => {
                       />
                     </CardGroup>
                     <Card.Link onClick={() => props.doneBoard(props.data._id, input)}>
-                      <Button variant="success" style={{ height: "20px", marginBottom: "0px", paddingTop: "0", fontSize: "12px"}} >Done</Button>
+                      <Button variant="success" style={{ height: "20px", marginTop: "5px", float: "left", paddingTop: "0", fontSize: "12px"}} >Done</Button>
                     </Card.Link>
                     
                     <CardGroup style={{ float: 'right' }}>
