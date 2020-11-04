@@ -4,7 +4,7 @@ import '../App.css';
 import userAPI from '../api/user.api';
 
 
-import {Button, Navbar, Nav, Form, FormControl, Row, Col, Container } from 'react-bootstrap'
+import {Button, Navbar, InputGroup, Nav, Form, FormControl, Row, Col, Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
@@ -14,29 +14,35 @@ import {
   Link
 } from "react-router-dom";
    
-const Signup = ({ match }) =>{
+const Signup = ({ match }) => {
   //đang lỗi input nhá!
-  const [input, setInput] = useState({email: '', pass: '', name:''})
+  const [input, setInput] = useState({email: '', pass: '', fullname:''}) 
 
-  const handleChange1 = e => {
-    setInput({email: e.target.value});
-    console.log(input);
+  const handleChange = e => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    });
+    // console.log(input);
   };
 
-  const handleChange2 = e => {
-    setInput({name: e.target.value});
-    console.log(input);
-  };  
+  // const handleChange2 = e => {
+  //   setInput({name: e.target.value});
+  //   console.log(input);
+  // };  
   
-  const handleChange3 = e => {
-    setInput({pass: e.target.value});
-    console.log(input);
-  };  
+  // const handleChange3 = e => {
+  //   setInput({pass: e.target.value});
+  //   console.log(input);
+  // };  
 
   const addUser = async () => {
+    // await console.log(input)
+
     // nhớ chỉnh về author ID khi làm login
     // const data = {name: txt, authorId: authorId};
     const res = await userAPI.add(input);
+    alert('Bạn đã tạo tài khoản thành công!');
   };
 
   return(
@@ -47,27 +53,82 @@ const Signup = ({ match }) =>{
           <Col md={6} lg={4}>
             <Container style={{ backgroundColor: "white", padding: "2rem 2rem"}}>
               <h3>Sign up</h3>
-              <Form>
-                <Form.Group controlId="formBasicEmail">
-                  <Form.Control value={input.email} onChange={handleChange1} type="email" placeholder="Enter email" />
-                </Form.Group>
-                <Form.Group controlId="formBasicEmail">
-                  <Form.Control value={input.name} onChange={handleChange2} type="text" placeholder="Enter your full name" />
-                </Form.Group>
-                <Form.Group controlId="formBasicPassword">
-                  <Form.Control value={input.pass} onChange={handleChange3} type="password" placeholder="Password" />
-                </Form.Group>
-                <Form.Group controlId="formBasicPassword">
-                  <Form.Control type="password" placeholder="Retype Password" />
-                  {/* <Form.Control value={input.repass} onChange={handleChange}  type="password" placeholder="Retype Password" /> */}
-                </Form.Group>
+              <Container >
+                <Row >
+                  <InputGroup className="mb-3">
+                    {/* <InputGroup.Prepend>
+                      <InputGroup.Text id="basic-addon1">Email address: </InputGroup.Text>
+                    </InputGroup.Prepend> */}
+                    <FormControl
+                      onChange={handleChange}
+                      placeholder="Enter your Email"
+                      aria-label="email"
+                      aria-describedby="basic-addon1"
+                      name="email"
+                      value={input.email}
+                    />
+                  </InputGroup>
+                </Row>
+                <Row >
+                  <InputGroup className="mb-3">
+                    {/* <InputGroup.Prepend>
+                      <InputGroup.Text id="basic-addon1">Full name: </InputGroup.Text>
+                    </InputGroup.Prepend> */}
+                    <FormControl
+                      onChange={handleChange}
+                      placeholder="Enter your full name"
+                      aria-label="name"
+                      aria-describedby="basic-addon1"
+                      name="fullname"
+                      value={input.fullname}
+                    />
+                  </InputGroup>
+                  {/* <h4 style={{float: "left"}}>Full name</h4>
+                  <input name="name" value={input.name} onChange={handleChange} type="text" placeholder="Enter your full name" /> */}
+                </Row>
+                <Row >
+                  <InputGroup className="mb-3">
+                    {/* <InputGroup.Prepend>
+                      <InputGroup.Text id="basic-addon1">Password: </InputGroup.Text>
+                    </InputGroup.Prepend> */}
+                    <FormControl
+                      onChange={handleChange}
+                      type="password"
+                      placeholder="Enter your password"
+                      aria-label="name"
+                      name="pass"
+                      aria-describedby="basic-addon1"
+                      value={input.pass}
+                    />
+                  </InputGroup>
+                  {/* <h4 style={{float: "left"}}>Password</h4>
+                  <input name="pass" value={input.pass} onChange={handleChange} type="password" placeholder="Password" /> */}
+                </Row>
+                <Row >
+                  <InputGroup className="mb-3">
+                    {/* <InputGroup.Prepend>
+                      <InputGroup.Text id="basic-addon1">Retype your password: </InputGroup.Text>
+                    </InputGroup.Prepend> */}
+                    <FormControl
+                      onChange={handleChange}
+                      type="password"
+                      placeholder="Retype your password"
+                      aria-label="name"
+                      name="repass"
+                      aria-describedby="basic-addon1"
+                    />
+                  </InputGroup>
+                  {/* <h4 style={{float: "left"}}>Retype password</h4> */}
+                  {/* <Input type="password" placeholder="Retype Password" />  */}
+                  {/* <input name="repass" value={input.repass} onChange={handleChange} type="password" placeholder="Retype Password" />  */}
+                </Row>
                 {/* <Form.Group controlId="formBasicCheckbox">
                   <Form.Check type="checkbox" label="Check me out" />
                 </Form.Group> */}
                 <Button onClick={() => addUser()} variant="primary" type="submit" style={{ width: "100%" }}>
                   Create
                 </Button>
-              </Form>
+              </Container>
               <br/>
             </Container>
           </Col>

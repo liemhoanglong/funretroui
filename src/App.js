@@ -30,7 +30,7 @@ function App() {
         <br/>
         
         <Switch>
-          <Route exact path="/" component = {Dashboard}/>
+          <Route exact path="/:author" component = {Dashboard}/>
           <Route path="/login" component = {Login}/>
           <Route path="/signup" component = {Signup}/>
           <Route path="/board/:author/:id" component = {BoardDetail}/>

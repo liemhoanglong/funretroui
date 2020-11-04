@@ -26,12 +26,12 @@ const Dashboard = ({ match }) =>{
   };  
 
   let id = "5f981b31face1e2ddb883a4c";
+
   useEffect(() => {
     const fetchAll = async () => {
       try {
-        let id = "5f981b31face1e2ddb883a4c";
-        // let id = match.params.id;
-
+        //sau khi làm xong đăng nhập nhớ đổi nha
+        // let id = match.params.authorId;
         const res = await bigBoardAPI.get(id);
         setBigBoards(res);
       } catch (error) {
@@ -46,7 +46,7 @@ const Dashboard = ({ match }) =>{
       return;
     }
     // nhớ chỉnh về author ID khi làm login
-    // const data = {name: txt, authorId: authorId};
+    // const data = {name: txt, authorId: match.params.authorId};
     const data = {name: txt, authorId: id};
     const res = await bigBoardAPI.add(data);
     setReset(!reset);
