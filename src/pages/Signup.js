@@ -15,7 +15,6 @@ import {
 } from "react-router-dom";
    
 const Signup = ({ match }) => {
-  //đang lỗi input nhá!
   const [input, setInput] = useState({email: '', pass: '', fullname:''}) 
 
   const handleChange = e => {
@@ -25,22 +24,10 @@ const Signup = ({ match }) => {
     });
     // console.log(input);
   };
-
-  // const handleChange2 = e => {
-  //   setInput({name: e.target.value});
-  //   console.log(input);
-  // };  
-  
-  // const handleChange3 = e => {
-  //   setInput({pass: e.target.value});
-  //   console.log(input);
-  // };  
+ 
 
   const addUser = async () => {
     // await console.log(input)
-
-    // nhớ chỉnh về author ID khi làm login
-    // const data = {name: txt, authorId: authorId};
     const res = await userAPI.add(input);
     alert('Bạn đã tạo tài khoản thành công!');
   };
@@ -56,12 +43,9 @@ const Signup = ({ match }) => {
               <Container >
                 <Row >
                   <InputGroup className="mb-3">
-                    {/* <InputGroup.Prepend>
-                      <InputGroup.Text id="basic-addon1">Email address: </InputGroup.Text>
-                    </InputGroup.Prepend> */}
                     <FormControl
                       onChange={handleChange}
-                      placeholder="Enter your Email"
+                      placeholder="Enter your email"
                       aria-label="email"
                       aria-describedby="basic-addon1"
                       name="email"
@@ -71,26 +55,18 @@ const Signup = ({ match }) => {
                 </Row>
                 <Row >
                   <InputGroup className="mb-3">
-                    {/* <InputGroup.Prepend>
-                      <InputGroup.Text id="basic-addon1">Full name: </InputGroup.Text>
-                    </InputGroup.Prepend> */}
                     <FormControl
                       onChange={handleChange}
-                      placeholder="Enter your full name"
+                      placeholder="Enter your fullname"
                       aria-label="name"
                       aria-describedby="basic-addon1"
                       name="fullname"
                       value={input.fullname}
                     />
                   </InputGroup>
-                  {/* <h4 style={{float: "left"}}>Full name</h4>
-                  <input name="name" value={input.name} onChange={handleChange} type="text" placeholder="Enter your full name" /> */}
                 </Row>
                 <Row >
                   <InputGroup className="mb-3">
-                    {/* <InputGroup.Prepend>
-                      <InputGroup.Text id="basic-addon1">Password: </InputGroup.Text>
-                    </InputGroup.Prepend> */}
                     <FormControl
                       onChange={handleChange}
                       type="password"
@@ -101,14 +77,9 @@ const Signup = ({ match }) => {
                       value={input.pass}
                     />
                   </InputGroup>
-                  {/* <h4 style={{float: "left"}}>Password</h4>
-                  <input name="pass" value={input.pass} onChange={handleChange} type="password" placeholder="Password" /> */}
                 </Row>
                 <Row >
                   <InputGroup className="mb-3">
-                    {/* <InputGroup.Prepend>
-                      <InputGroup.Text id="basic-addon1">Retype your password: </InputGroup.Text>
-                    </InputGroup.Prepend> */}
                     <FormControl
                       onChange={handleChange}
                       type="password"
@@ -118,13 +89,7 @@ const Signup = ({ match }) => {
                       aria-describedby="basic-addon1"
                     />
                   </InputGroup>
-                  {/* <h4 style={{float: "left"}}>Retype password</h4> */}
-                  {/* <Input type="password" placeholder="Retype Password" />  */}
-                  {/* <input name="repass" value={input.repass} onChange={handleChange} type="password" placeholder="Retype Password" />  */}
                 </Row>
-                {/* <Form.Group controlId="formBasicCheckbox">
-                  <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group> */}
                 <Button onClick={() => addUser()} variant="primary" type="submit" style={{ width: "100%" }}>
                   Create
                 </Button>

@@ -22,7 +22,7 @@ function App() {
       <Container fluid className="App" style={{backgroundColor:'#F3F3F3', padding: "0px", height:"max-content"}}>
         <header>
           <Navbar bg="primary" variant="dark">
-            <Navbar.Brand href="/login">Funretro</Navbar.Brand>
+            <Navbar.Brand href="/">Funretro</Navbar.Brand>
             <Nav className="mr-auto"></Nav>
             <Link className="login-button" to="/login">Login</Link>
           </Navbar>
@@ -31,7 +31,7 @@ function App() {
         
         <Switch>
           <Route path="/dashboard/:author" component = {Dashboard}/>
-          <Route path="/login" component = {Login}/>
+          <Route exact path="/" component = {Login}/>
           <Route path="/signup" component = {Signup}/>
           <Route path="/board/:author/:id" component = {BoardDetail}/>
         </Switch> 

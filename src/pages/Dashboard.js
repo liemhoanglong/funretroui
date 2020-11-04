@@ -82,7 +82,7 @@ const Dashboard = ({ match }) =>{
 
   return(
     <>
-      <h1>My boards</h1>
+      <h1>Dashboard</h1>
       <Container style={{ padding: '5px 40px', maxWidth:'95%', background:"white" }}>
         <Form inline>
           <FormControl type="text" placeholder="Filter your cards" className="mr-sm-2" />
