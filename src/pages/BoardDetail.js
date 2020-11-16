@@ -50,7 +50,6 @@ const BoardDetail = ({ match }) =>{
     fetchAll();
   }, [])
 
-
   useEffect(() => {
     const fetchAll = async () => {
       try {
@@ -74,27 +73,10 @@ const BoardDetail = ({ match }) =>{
     await boardAPI.add(data);
     setReset(!reset);
   };
-  
-  // const addBoard2 = async () => {
-  //   if (!input2 || /^\s*$/.test(input2)) {
-  //     return;
-  //   }
-  //   const data = {name: input2, type: 2, like: 0, boardId: match.params.id};
-  //   const res = await boardAPI.add(data);
-  // };
-
-  // const addBoard3 = async () => {
-  //   if (!input3 || /^\s*$/.test(input3)) {
-  //     return;
-  //   }
-  //   const data = {name: input3, type: 3, like: 0, boardId: match.params.id};
-  //   const res = await boardAPI.add(data);
-  // };
 
   const delBoard = async (id) => {
     await boardAPI.delete(id);
     setReset(!reset);
-
   };
 
   const editBoard = async (id, data) =>{
@@ -105,9 +87,6 @@ const BoardDetail = ({ match }) =>{
   }
 
   const doneBoard = async (id, data) =>{
-    // if (!input || /^\s*$/.test(input)) {
-    //   return;
-    // }
     await setEdit({
       id: null,
       value: ''
@@ -120,98 +99,128 @@ const BoardDetail = ({ match }) =>{
   return(
     <>
       <h1>{bigBoards.name}</h1>
-        <Container fluid style={{ padding: '30px 40px' }}>
-          <Row>
-            <Col>
-              <Container className="container">
-                <Row className="row">
-                  <h5 style={{float: "left"}}>Went well</h5>  
-                </Row>
-                <Row className="row" style={{marginBottom:"10px"}}>
-                  {/* <button type="button" className="btn-add btn btn-secondary" style={{width:"100%", borderColor: "#DDDDDD" }}>
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-plus" fill="black" xmlns="http://www.w3.org/2000/svg">
-                      <path fillRule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                    </svg>
-                  </button>
-                  <hr/> */}
-                  <InputGroup className="mb-3">
-                    <FormControl
-                      placeholder="abc"
-                      value={input}
-                      onChange={handleChange}
-                      aria-label="abc"
-                      aria-describedby="basic-addon2"
-                    />
-                    <InputGroup.Append>
-                      <Button onClick={ () => addBoard(input, 1) } variant="outline-secondary">Add</Button>
-                      
-                    </InputGroup.Append>
-                  </InputGroup>
-                </Row>
-                {boards.map((board, i) => {
-                  return (
-                    <Board key={i} data={board} edit={edit} delBoard={delBoard} editBoard={editBoard} doneBoard={doneBoard} type='1'/>
-                  )
-                })}
-              </Container>
-            </Col>
-            <Col>
+      <Container fluid style={{ padding: '30px 40px' }}>
+        <Row>
+          <Col>
             <Container className="container">
-                <Row className="row">
-                  <h5 style={{float: "left"}}>To improve</h5>  
-                </Row>
-                <Row className="row" style={{marginBottom:"10px"}}>
-                  <InputGroup className="mb-3">
-                    <FormControl
-                      placeholder="abc"
-                      value={input2}
-                      onChange={handleChange2}
-                      aria-label="abc"
-                      aria-describedby="basic-addon2"
-                    />
-                    <InputGroup.Append>
-                      <Button onClick={ () => addBoard(input2, 2) } variant="outline-secondary">Add</Button>
-                      
-                    </InputGroup.Append>
-                  </InputGroup>
-                </Row>
-                {boards.map((board, i) => {
-                  return (
-                    <Board key={i}  data={board} edit={edit} delBoard={delBoard} editBoard={editBoard} doneBoard={doneBoard} type='2'/>
-                  )
-                })}
-              </Container>
-            </Col>
-            <Col>
+              <Row className="row">
+                <h5 style={{float: "left"}}>Went well</h5>  
+              </Row>
+              <Row className="row" style={{marginBottom:"10px"}}>
+                <InputGroup className="mb-3">
+                  <FormControl
+                    placeholder="abc"
+                    value={input}
+                    onChange={handleChange}
+                    aria-label="abc"
+                    aria-describedby="basic-addon2"
+                  />
+                  <InputGroup.Append>
+                    <Button 
+                      onClick={ () => addBoard(input, 1) } 
+                      variant="outline-secondary"
+                    >
+                      Add
+                    </Button>
+                  </InputGroup.Append>
+                </InputGroup>
+              </Row>
+              {boards.map((board, i) => {
+                return (
+                  <Board 
+                    key={i} 
+                    data={board} 
+                    edit={edit} 
+                    delBoard={delBoard} 
+                    editBoard={editBoard} 
+                    doneBoard={doneBoard} 
+                    type='1'
+                  />
+                )
+              })}
+            </Container>
+          </Col>
+          <Col>
             <Container className="container">
-                <Row className="row">
-                  <h5 style={{float: "left"}}>Action Items</h5>  
-                </Row>
-                <Row className="row" style={{marginBottom:"10px"}}>
-                  <InputGroup className="mb-3">
-                    <FormControl
-                      placeholder="abc"
-                      value={input3}
-                      onChange={handleChange3}
-                      aria-label="abc"
-                      aria-describedby="basic-addon2"
-                    />
-                    <InputGroup.Append>
-                      <Button onClick={ () => addBoard(input3, 3) } variant="outline-secondary">Add</Button>
-                      
-                    </InputGroup.Append>
-                  </InputGroup>
-                  <hr/>
-                </Row>
-                {boards.map((board, i) => {
-                  return (
-                    <Board key={i} data={board} edit={edit} delBoard={delBoard} editBoard={editBoard} doneBoard={doneBoard} type='3'/>
-                  )
-                })}
-              </Container>
-            </Col>
-          </Row> 
-        </Container>
+              <Row className="row">
+                <h5 style={{float: "left"}}>To improve</h5>  
+              </Row>
+              <Row className="row" style={{marginBottom:"10px"}}>
+                <InputGroup className="mb-3">
+                  <FormControl
+                    placeholder="abc"
+                    value={input2}
+                    onChange={handleChange2}
+                    aria-label="abc"
+                    aria-describedby="basic-addon2"
+                  />
+                  <InputGroup.Append>
+                    <Button 
+                      onClick={ () => addBoard(input2, 2) } 
+                      variant="outline-secondary"
+                    >
+                      Add
+                    </Button>
+                  </InputGroup.Append>
+                </InputGroup>
+              </Row>
+              {boards.map((board, i) => {
+                return (
+                  <Board 
+                    key={i}  
+                    data={board} 
+                    edit={edit} 
+                    delBoard={delBoard} 
+                    editBoard={editBoard} 
+                    doneBoard={doneBoard} 
+                    type='2'
+                  />
+                )
+              })}
+            </Container>
+          </Col>
+          <Col>
+            <Container className="container">
+              <Row className="row">
+                <h5 style={{float: "left"}}>Action Items</h5>  
+              </Row>
+              <Row className="row" style={{marginBottom:"10px"}}>
+                <InputGroup className="mb-3">
+                  <FormControl
+                    placeholder="abc"
+                    value={input3}
+                    onChange={handleChange3}
+                    aria-label="abc"
+                    aria-describedby="basic-addon2"
+                  />
+                  <InputGroup.Append>
+                    <Button 
+                      onClick={ () => addBoard(input3, 3) } 
+                      variant="outline-secondary"
+                    >
+                      Add
+                    </Button>
+                  </InputGroup.Append>
+                </InputGroup>
+                <hr/>
+              </Row>
+              {boards.map((board, i) => {
+                return (
+                  <Board 
+                    key={i} 
+                    data={board} 
+                    edit={edit} 
+                    delBoard={delBoard} 
+                    editBoard={editBoard} 
+                    doneBoard={doneBoard} 
+                    type='3'
+                  />
+                )
+              })}
+            </Container>
+          </Col>
+        </Row> 
+      </Container>
     </>
   )
 }

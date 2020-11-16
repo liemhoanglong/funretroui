@@ -2,6 +2,7 @@ import React, {useEffect, useState, useContext} from 'react';
 import '../App.css';
 import axios from 'axios';
 import userAPI from '../api/user.api';
+import GoogleLogin from 'react-google-login'
 
 import {Button, Navbar, Nav, Form, FormControl, Row, Col, Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -44,6 +45,14 @@ const Login = (props) =>{
   // if(islogin) return <Redirect to="/dashboard/5fa2646d31a53d1db0363c51"/>
   if(islogin) return <Redirect to={"/dashboard/" + currUser} />
 
+  const responseGoogle = (res) => {
+    localStorage.setItem('googleAuth', JSON.stringify(res));
+    localStorage.setItem('token', res.accessToken);
+    localStorage.setItem('username', res.profileObj.name);
+    localStorage.setItem('user', '5fa15c4793acfa3a649e1a13');
+    setIslogin(true);
+  }
+
   return(
     <>
       <Container fluid>
@@ -83,6 +92,13 @@ const Login = (props) =>{
               <Button variant="danger" type="submit" style={{ width: "100%", margin: "1rem 0rem" }}>
                   Google Login
               </Button>
+              <GoogleLogin
+                clientId="548746420425-hveb451qafosuihn2qk0pupe7alsdl2q.apps.googleusercontent.com"
+                buttonText="Google Login"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={'single_host_origin'}
+                />
               <Link to="/signup" style={{ float: "right" }} >Or Register</Link>
             </Container>
           </Col>

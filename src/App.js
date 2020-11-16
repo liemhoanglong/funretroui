@@ -35,6 +35,7 @@ function App() {
 
   useEffect(() => {
     const checkLoggedIn = async () => {
+      let tokenGoogle = localStorage.getItem("googleAuth");
       let token = localStorage.getItem("token");
       let user = localStorage.getItem("user");
       if (token === null || user === null){
@@ -43,25 +44,32 @@ function App() {
         localStorage.setItem("user","");
         user = "";
       }
-      //http://localhost:3000/profile
-      const config = {
-        method: 'get',
-        url: 'https://funretroapi.herokuapp.com/profile',
-
-
-        headers: { 
-          'Authorization': 'Bearer ' + token  
-        }
-      };
-      try {
-        const userRes = await axios(config);
+      if (tokenGoogle){
         setUserData({
           token,
-          user: userRes.data,
+          user: {username: localStorage.getItem("username")},
         });
-        console.log(userRes.data)
-      } catch (error) {
-        console.log(error)
+      }
+      else {
+        
+        //http://localhost:3000/profile
+        const config = {
+          method: 'get',
+          url: 'https://funretroapi.herokuapp.com/profile',
+          headers: { 
+            'Authorization': 'Bearer ' + token  
+          }
+        };
+        try {
+          const userRes = await axios(config);
+          setUserData({
+            token,
+            user: userRes.data,
+          });
+          console.log(userRes.data)
+        } catch (error) {
+          console.log(error)
+        }
       }
     } 
 
@@ -76,6 +84,8 @@ function App() {
     setIslogin(false)
     localStorage.setItem("token", "");
     localStorage.setItem("user", "");
+    localStorage.setItem("googleAuth", "");
+    localStorage.setItem("username", "");
   }
 
   return (
@@ -89,7 +99,7 @@ function App() {
                 <Navbar.Brand href={"/dashboard/" + id} style={{paddingLeft:"2rem"}}>Funretro</Navbar.Brand>
                 <Nav className="mr-auto"></Nav>
                 <Link className="login-button" to={"/dashboard/" + id} style={{padding:"0rem 2rem"}}>DashBoard</Link>
-                <Link className="login-button" to={"/User/" + id} style={{padding:"0rem 2rem"}}>{userData.user.username}</Link>
+            <Link className="login-button" to={"/User/" + id} style={{padding:"0rem 2rem"}}>{userData.user.username}</Link>
                 {/* <Link className="login-button" to={"/User/" + id} style={{padding:"0rem 2rem"}}>{name}</Link> */}
                 <Link onClick={logout} to="/login" className="login-button" style={{padding:"0rem 2rem"}}>Logout</Link>
               </Navbar>
