@@ -43,10 +43,12 @@ function App() {
         localStorage.setItem("user","");
         user = "";
       }
-
+      //http://localhost:3000/profile
       const config = {
         method: 'get',
-        url: 'http://localhost:3000/profile',
+        url: 'https://funretroapi.herokuapp.com/profile',
+
+
         headers: { 
           'Authorization': 'Bearer ' + token  
         }
