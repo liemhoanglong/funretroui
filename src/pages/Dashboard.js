@@ -25,7 +25,9 @@ const Dashboard = ({ match }) =>{
     setInput(e.target.value);
   };  
 
-  let id = "5f981b31face1e2ddb883a4c";
+  // let id = "5fa2646d31a53d1db0363c51";
+
+  let id = localStorage.getItem("user");
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -48,7 +50,7 @@ const Dashboard = ({ match }) =>{
     // nhớ chỉnh về author ID khi làm login
     // const data = {name: txt, authorId: match.params.authorId};
     const data = {name: txt, authorId: id};
-    const res = await bigBoardAPI.add(data);
+    await bigBoardAPI.add(data);
     setReset(!reset);
   };
 

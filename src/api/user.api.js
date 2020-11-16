@@ -25,6 +25,16 @@ const userAPI = {
     //     const url = `bigBoards/${id}`;
     //     return axiosClient.delete(url);
     // },
+
+    login: (data) => {
+        const url = `auth/login`;
+        return axiosClient.post(url, data);
+    },
+
+    // valid: () => {
+    //     const url = `profile`;
+    //     return axiosClient.get(url);
+    // },
 }
 
 export default userAPI;

@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import '../App.css';
-
-// import userAPI from '../api/user.api';
-
+import axios from 'axios';
+import userAPI from '../api/user.api';
 
 import {Button, Navbar, Nav, Form, FormControl, Row, Col, Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,27 +10,39 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
   Link
 } from "react-router-dom";
+
+import UserContext from ".././context/UserContext";
    
-const Login = ({ match }) =>{
-//   const [bigBoards, setBigBoards] = useState([])
+const Login = (props) =>{
+  const [input, setInput] = useState({username: '', password: ''}) 
+  // const [islogin, setIslogin]  = useState(false);
+  const { islogin, setIslogin } = useContext(UserContext);
+
+  const handleChange = e => { 
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    });
+    // console.log(input);
+  };
+
+  const login = async () => {
+    const res = await userAPI.login(input);
+    if(res){
+      localStorage.setItem('token', res.access_token);
+      localStorage.setItem('user', res.user._id);
+      // alert(JSON.stringify(res) + '  Bạn đã đăng nhập thành công!');
+      setIslogin(true);
+    }
+  };
   
-//   useEffect(() => {
-//     const fetchAll = async () => {
-//       try {
-//         let id = "5f981b31face1e2ddb883a4c";
-//         // let id = match.params.id;
-
-//         const res = await bigBoardAPI.get(id);
-//         setBigBoards(res);
-//       } catch (error) {
-//         console.log('Failed to fetch: ', error);
-//       }
-//     } 
-//     fetchAll();
-//   }, [])
-
+  let currUser = localStorage.getItem("user");
+  // console.log(user)
+  // if(islogin) return <Redirect to="/dashboard/5fa2646d31a53d1db0363c51"/>
+  if(islogin) return <Redirect to={"/dashboard/" + currUser} />
 
   return(
     <>
@@ -43,17 +54,31 @@ const Login = ({ match }) =>{
               <h3>Login</h3>
               <Form>
                 <Form.Group controlId="formBasicEmail">
-                  <Form.Control type="email" placeholder="Enter your email" />
+                  <Form.Control 
+                    onChange={handleChange}
+                    type="email" 
+                    placeholder="Enter your email" 
+                    name="username"
+                    value={input.username}
+                  />
                 </Form.Group>
                 <Form.Group controlId="formBasicPassword">
-                  <Form.Control type="password" placeholder="Password" />
+                  <Form.Control 
+                    onChange={handleChange}
+                    type="password" 
+                    placeholder="Password" 
+                    name="password"
+                    value={input.password}
+                  />
                 </Form.Group>
                 {/* <Form.Group controlId="formBasicCheckbox">
                   <Form.Check type="checkbox" label="Check me out" />
                 </Form.Group> */}
-                <Button variant="primary" type="submit" style={{ width: "100%" }}>
+                {/* <Link to="/dashboard/5fa2646d31a53d1db0363c51"> */}
+                <Button onClick={() => login()} variant="primary" type="submit" style={{ width: "100%" }}>
                   Login
                 </Button>
+                {/* </Link> */}
               </Form>
               <Button variant="danger" type="submit" style={{ width: "100%", margin: "1rem 0rem" }}>
                   Google Login

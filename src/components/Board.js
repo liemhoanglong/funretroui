@@ -5,8 +5,8 @@ import { Row, Card, CardGroup, Button } from 'react-bootstrap'
 import boardAPI from '../api/board.api';
 
 const Board = (props) => {
-  const [input, setInput] = useState(props.edit ? props.edit.value : 'default');
-  // const [input, setInput] = useState('');
+  // const [input, setInput] = useState(props.edit ? props.edit.value : 'default');
+  const [input, setInput] = useState('');
   // props.edit ? setInput(props.edit.value) : '';
   console.log(props.edit.value)
   // console.log(input);

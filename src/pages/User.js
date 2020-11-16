@@ -14,7 +14,7 @@ import {
   Link
 } from "react-router-dom";
    
-const Signup = ({ match }) => {
+const User = ({ match }) => {
   const [input, setInput] = useState({email: '', pass: '', fullname:''}) 
 
   const handleChange = e => {
@@ -24,11 +24,26 @@ const Signup = ({ match }) => {
     });
     // console.log(input);
   };
+  
+  useEffect(() => {
+    const fetchAll = async () => {
+      try {
+        // console.log("id user: "+match.params.id)
+        const res = await userAPI.get(match.params.id);
+        // console.log("user info: "+res)
+        res.pass = '';
+        setInput(res);
+      } catch (error) {
+        console.log('Failed to fetch: ', error);
+      }
+    } 
+    fetchAll();
+  }, [])
 
-  const addUser = async () => {
+  const editUser = async () => {
     // await console.log(input)
-    await userAPI.add(input);
-    alert('Bạn đã tạo tài khoản thành công!');
+    await userAPI.edit(match.params.id ,input);
+    alert('Bạn đã chỉnh sửa tài khoản thành công!');
   };
 
   return(
@@ -38,7 +53,7 @@ const Signup = ({ match }) => {
           <Col md={3} lg={4}></Col>
           <Col md={6} lg={4}>
             <Container style={{ backgroundColor: "white", padding: "2rem 2rem"}}>
-              <h3>Sign up</h3>
+              <h3>Edit Profile</h3>
               <Container >
                 <Row >
                   <InputGroup className="mb-3">
@@ -89,8 +104,8 @@ const Signup = ({ match }) => {
                     />
                   </InputGroup>
                 </Row>
-                <Button onClick={() => addUser()} variant="primary" type="submit" style={{ width: "100%" }}>
-                  Create
+                <Button onClick={() => editUser()} variant="primary" type="submit" style={{ width: "100%" }}>
+                  Save
                 </Button>
               </Container>
               <br/>
@@ -102,4 +117,4 @@ const Signup = ({ match }) => {
     </>
   )
 }
-export default Signup
+export default User

@@ -71,9 +71,8 @@ const BoardDetail = ({ match }) =>{
       return;
     }
     const data = {name: txt, type: type, like: 0, boardId: match.params.id};
-    const res = await boardAPI.add(data);
+    await boardAPI.add(data);
     setReset(!reset);
-
   };
   
   // const addBoard2 = async () => {
