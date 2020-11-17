@@ -3,6 +3,7 @@ import '../App.css';
 import axios from 'axios';
 import userAPI from '../api/user.api';
 import GoogleLogin from 'react-google-login'
+import FacebookLogin from 'react-facebook-login';
 
 import {Button, Navbar, Nav, Form, FormControl, Row, Col, Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -53,6 +54,15 @@ const Login = (props) =>{
     setIslogin(true);
   }
 
+  const responseFacebook = (res) => {
+    localStorage.setItem('fbAuth', JSON.stringify(res));
+    localStorage.setItem('token', res.accessToken);
+    localStorage.setItem('username', res.name);
+    localStorage.setItem('user', '5fa15ced38a07a197c6bcc63');
+    // console.log(res);
+    setIslogin(true);
+  }
+
   return(
     <>
       <Container fluid>
@@ -89,16 +99,31 @@ const Login = (props) =>{
                 </Button>
                 {/* </Link> */}
               </Form>
-              <Button variant="danger" type="submit" style={{ width: "100%", margin: "1rem 0rem" }}>
+              {/* <Button variant="danger" type="submit" style={{ width: "100%", margin: "1rem 0rem" }}>
                   Google Login
-              </Button>
-              <GoogleLogin
-                clientId="548746420425-hveb451qafosuihn2qk0pupe7alsdl2q.apps.googleusercontent.com"
-                buttonText="Google Login"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-                cookiePolicy={'single_host_origin'}
-                />
+              </Button> */}
+              <hr/>
+              <Container fluid>
+                <Row>
+                  <Col>
+                    <GoogleLogin
+                      clientId="548746420425-hveb451qafosuihn2qk0pupe7alsdl2q.apps.googleusercontent.com"
+                      buttonText="Google Login"
+                      onSuccess={responseGoogle}
+                      onFailure={responseGoogle}
+                      cookiePolicy={'single_host_origin'}
+                    />
+                  </Col>
+                  <Col>
+                    <FacebookLogin
+                      appId="1006134179884069"
+                      autoLoad={true}
+                      fields="name,email,picture"
+                      callback={responseFacebook} 
+                    />
+                  </Col>
+                </Row>
+              </Container>
               <Link to="/signup" style={{ float: "right" }} >Or Register</Link>
             </Container>
           </Col>

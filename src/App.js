@@ -36,6 +36,7 @@ function App() {
   useEffect(() => {
     const checkLoggedIn = async () => {
       let tokenGoogle = localStorage.getItem("googleAuth");
+      let tokenFB = localStorage.getItem("fbAuth");
       let token = localStorage.getItem("token");
       let user = localStorage.getItem("user");
       if (token === null || user === null){
@@ -45,6 +46,12 @@ function App() {
         user = "";
       }
       if (tokenGoogle){
+        setUserData({
+          token,
+          user: {username: localStorage.getItem("username")},
+        });
+      }
+      else if (tokenFB){
         setUserData({
           token,
           user: {username: localStorage.getItem("username")},
@@ -85,6 +92,7 @@ function App() {
     localStorage.setItem("token", "");
     localStorage.setItem("user", "");
     localStorage.setItem("googleAuth", "");
+    localStorage.setItem("fbAuth", "");
     localStorage.setItem("username", "");
   }
 
