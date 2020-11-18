@@ -35,10 +35,14 @@ const Login = (props) =>{
     const res = await userAPI.login(input);
     if(res){
       localStorage.setItem('token', res.access_token);
+      localStorage.setItem('googleAuth', '');
+      localStorage.setItem('fbAuth', '');
       localStorage.setItem('user', res.user._id);
-      // alert(JSON.stringify(res) + '  Bạn đã đăng nhập thành công!');
+      alert(JSON.stringify(res) + '  Bạn đã đăng nhập thành công!');
       setIslogin(true);
-    }
+    }else
+      alert(JSON.stringify(res) + '  Bạn đã đăng nhập thất bại!');
+
   };
   
   let currUser = localStorage.getItem("user");
@@ -94,7 +98,7 @@ const Login = (props) =>{
                   <Form.Check type="checkbox" label="Check me out" />
                 </Form.Group> */}
                 {/* <Link to="/dashboard/5fa2646d31a53d1db0363c51"> */}
-                <Button onClick={() => login()} variant="primary" type="submit" style={{ width: "100%" }}>
+                <Button onClick={() => login()} variant="primary" style={{ width: "100%" }}>
                   Login
                 </Button>
                 {/* </Link> */}
