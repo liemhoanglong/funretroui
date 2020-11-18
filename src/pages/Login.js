@@ -38,10 +38,10 @@ const Login = (props) =>{
       localStorage.setItem('googleAuth', '');
       localStorage.setItem('fbAuth', '');
       localStorage.setItem('user', res.user._id);
-      alert(JSON.stringify(res) + '  Bạn đã đăng nhập thành công!');
+      //alert(JSON.stringify(res) + '  Bạn đã đăng nhập thành công!');
       setIslogin(true);
-    }else
-      alert(JSON.stringify(res) + '  Bạn đã đăng nhập thất bại!');
+    }
+      //alert(JSON.stringify(res) + '  Bạn đã đăng nhập thất bại!');
 
   };
   
