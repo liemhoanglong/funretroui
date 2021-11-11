@@ -5,17 +5,12 @@ import userAPI from "../api/user.api";
 
 import {
   Button,
-  Navbar,
   InputGroup,
-  Nav,
-  Form,
   FormControl,
   Row,
   Col,
   Container,
 } from "react-bootstrap";
-
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const User = ({ match }) => {
   const [input, setInput] = useState({ email: "", pass: "", fullname: "" });

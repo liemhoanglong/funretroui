@@ -4,7 +4,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Dashboard from "./pages/Dashboard";
-import BoardDetail from "./pages/BoardDetail";
+import BigBoardDetail from "./pages/BigBoardDetail";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import User from "./pages/User";
@@ -18,9 +18,6 @@ import NavBar from "./components/NavBar";
 // import Axios from 'axios';
 
 function App() {
-  let id = localStorage.getItem("user");
-  // const [name, setName] = useState('');
-
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
@@ -52,7 +49,8 @@ function App() {
       } else {
         const config = {
           method: "get",
-          url: "https://funretroapi.herokuapp.com/profile",
+          // url: "https://funretroapi.herokuapp.com/profile",
+          url: "http://localhost:3001/profile",
           headers: {
             Authorization: "Bearer " + token,
           },
@@ -95,7 +93,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/dashboard/:author" component={Dashboard} />
-            <Route exact path="/board/:author/:id" component={BoardDetail} />
+            <Route exact path="/board/:author/:id" component={BigBoardDetail} />
             <Route exact path="/user/:id" component={User} />
           </Switch>
           <br />

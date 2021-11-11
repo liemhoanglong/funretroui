@@ -8,28 +8,21 @@ import {
   Button,
 } from "react-bootstrap";
 
-import "../App.css";
-
 import Board from "../components/Board";
 
 import bigBoardAPI from "../api/bigBoard.api";
 import boardAPI from "../api/board.api";
 
-const BoardDetail = ({ match }) => {
+const BigBoardDetail = ({ match }) => {
+  console.log("🚀 ~ file: BigBoardDetail.js")
   const [bigBoards, setBigBoards] = useState([]);
   const [boards, setBoards] = useState([]);
-  //edit
-  const [edit, setEdit] = useState({
-    id: null,
-    value: "",
-  });
-
+  const [reset, setReset] = useState(true);
   //input1, input2, input3
   const [input, setInput] = useState("");
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
   // console.log(match);
-  const [reset, setReset] = useState(true);
 
   const handleChange = (e) => {
     setInput(e.target.value);
@@ -76,39 +69,17 @@ const BoardDetail = ({ match }) => {
     setReset(!reset);
   };
 
-  const delBoard = async (id) => {
-    await boardAPI.delete(id);
-    setReset(!reset);
-  };
-
-  const editBoard = async (id, data) => {
-    await setEdit({
-      id: id,
-      value: data,
-    });
-  };
-
-  const doneBoard = async (id, data) => {
-    await setEdit({
-      id: null,
-      value: "",
-    });
-    const temp = { name: data };
-    await boardAPI.edit(id, temp);
-    setReset(!reset);
-  };
-
   return (
     <>
       <h1>{bigBoards.name}</h1>
       <Container fluid style={{ padding: "30px 40px" }}>
         <Row>
           <Col>
-            <Container className="container">
-              <Row className="row">
-                <h5 style={{ float: "left" }}>Went well</h5>
-              </Row>
-              <Row className="row" style={{ marginBottom: "10px" }}>
+            <Container>
+              <center>
+                <h5>Went well</h5>
+              </center>
+              <Row className='mb-2'>
                 <InputGroup className="mb-3">
                   <FormControl
                     placeholder="abc"
@@ -117,37 +88,31 @@ const BoardDetail = ({ match }) => {
                     aria-label="abc"
                     aria-describedby="basic-addon2"
                   />
-                  <InputGroup.Append>
-                    <Button
-                      onClick={() => addBoard(input, 1)}
-                      variant="outline-secondary"
-                    >
-                      Add
-                    </Button>
-                  </InputGroup.Append>
+                  <Button
+                    onClick={() => addBoard(input, 1)}
+                    variant="outline-secondary"
+                  >
+                    Add
+                  </Button>
                 </InputGroup>
               </Row>
-              {boards.map((board, i) => {
+              {boards.filter(board=>board.type === 1).map((board, i) => {
                 return (
                   <Board
                     key={i}
                     data={board}
-                    edit={edit}
-                    delBoard={delBoard}
-                    editBoard={editBoard}
-                    doneBoard={doneBoard}
-                    type="1"
+                    setReset={setReset}
                   />
                 );
               })}
             </Container>
           </Col>
           <Col>
-            <Container className="container">
-              <Row className="row">
-                <h5 style={{ float: "left" }}>To improve</h5>
-              </Row>
-              <Row className="row" style={{ marginBottom: "10px" }}>
+            <Container>
+              <center>
+                <h5>To improve</h5>
+              </center>
+              <Row className='mb-2'>
                 <InputGroup className="mb-3">
                   <FormControl
                     placeholder="abc"
@@ -156,37 +121,31 @@ const BoardDetail = ({ match }) => {
                     aria-label="abc"
                     aria-describedby="basic-addon2"
                   />
-                  <InputGroup.Append>
-                    <Button
-                      onClick={() => addBoard(input2, 2)}
-                      variant="outline-secondary"
-                    >
-                      Add
-                    </Button>
-                  </InputGroup.Append>
+                  <Button
+                    onClick={() => addBoard(input2, 2)}
+                    variant="outline-secondary"
+                  >
+                    Add
+                  </Button>
                 </InputGroup>
               </Row>
-              {boards.map((board, i) => {
+              {boards.filter(board=>board.type === 2).map((board, i) => {
                 return (
                   <Board
                     key={i}
                     data={board}
-                    edit={edit}
-                    delBoard={delBoard}
-                    editBoard={editBoard}
-                    doneBoard={doneBoard}
-                    type="2"
+                    setReset={setReset}
                   />
                 );
               })}
             </Container>
           </Col>
           <Col>
-            <Container className="container">
-              <Row className="row">
-                <h5 style={{ float: "left" }}>Action Items</h5>
-              </Row>
-              <Row className="row" style={{ marginBottom: "10px" }}>
+            <Container>
+              <center>
+                <h5>Action Items</h5>
+              </center>
+              <Row className='mb-2'>
                 <InputGroup className="mb-3">
                   <FormControl
                     placeholder="abc"
@@ -195,27 +154,20 @@ const BoardDetail = ({ match }) => {
                     aria-label="abc"
                     aria-describedby="basic-addon2"
                   />
-                  <InputGroup.Append>
-                    <Button
-                      onClick={() => addBoard(input3, 3)}
-                      variant="outline-secondary"
-                    >
-                      Add
-                    </Button>
-                  </InputGroup.Append>
+                  <Button
+                    onClick={() => addBoard(input3, 3)}
+                    variant="outline-secondary"
+                  >
+                    Add
+                  </Button>
                 </InputGroup>
-                <hr />
               </Row>
-              {boards.map((board, i) => {
+              {boards.filter(board=>board.type === 3).map((board, i) => {
                 return (
                   <Board
                     key={i}
-                    data={board}
-                    edit={edit}
-                    delBoard={delBoard}
-                    editBoard={editBoard}
-                    doneBoard={doneBoard}
-                    type="3"
+                    data={board}                    
+                    setReset={setReset}
                   />
                 );
               })}
@@ -227,4 +179,4 @@ const BoardDetail = ({ match }) => {
   );
 };
 
-export default BoardDetail;
+export default BigBoardDetail;

@@ -36,10 +36,7 @@ const BigBoard = (props) => {
       setReset((prevState) => !prevState);
       setLoad(false);
     } catch (error) {
-      console.log(
-        "🚀 ~ file: BigBoard.js ~ line 39 ~ delBigBoard ~ error",
-        error
-      );
+      console.log("🚀 ~ file: BigBoard.js ~ line 39 ~ delBigBoard ~ error", error)
       setLoad(false);
     }
   };
@@ -55,11 +52,7 @@ const BigBoard = (props) => {
       setReset((prevState) => !prevState);
       setLoad(false);
     } catch (error) {
-      console.log(
-        "🚀 ~ file: BigBoard.js ~ line 59 ~ saveBigBoard ~ error",
-        error
-      );
-
+      console.log("🚀 ~ file: BigBoard.js ~ line 55 ~ saveBigBoard ~ error", error)
       setLoad(false);
     }
   };
