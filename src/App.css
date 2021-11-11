@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color: #f3f3f3;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -24,8 +26,13 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.link-custom {
+  color: black;
+  text-decoration: none;
+}
+
+.link-custom:hover {
+  color: inherit;
 }
 
 @keyframes App-logo-spin {
@@ -46,31 +53,36 @@
   border-color: none !important;
 }
 
-.big-board-hover{
+.big-board-hover {
   color: black;
 }
 
-.big-board-hover:hover{
-  background-color: #DDDDDD;
+.big-board-hover:hover {
+  background-color: #dddddd;
   text-decoration: none !important;
   color: black;
 }
 
-.add-big-board{
-  background-color: none !important;  
+.add-big-board {
+  background-color: none !important;
   color: black;
   border: 2px dashed #ccc;
 }
 
-.add-big-board:hover{
-  color: #FF5722;
-  border: 2px dashed #FF5722;
+.add-big-board:hover {
+  color: #ff5722;
+  border: 2px dashed #ff5722;
 }
 
-.login-button{
+.big-board-btn {
+  color: purple;
+  width: 100%;
+}
+
+.login-button {
   color: white;
 }
 
-.login-button:hover{
+.login-button:hover {
   text-decoration: none;
 }

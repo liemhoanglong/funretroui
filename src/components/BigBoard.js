@@ -1,103 +1,135 @@
-import React, {useEffect, useState} from 'react';
-import '../App.css';
-import {Button, Row, Col, Container, Card, CardGroup } from 'react-bootstrap'
-import { Link } from 'react-router-dom';
+import React, { useState, memo } from "react";
+import "../App.css";
+import { Button, Col, Card, CardGroup } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
+import Loading from "../components/Loading";
+
+import bigBoardAPI from "../api/bigBoard.api";
 
 const BigBoard = (props) => {
-  const [input, setInput] = useState(props.edit ? props.edit.value : 'default');
-  // const [input, setInput] = useState('');
-  // props.edit ? setInput(props.edit.value) : '';
-  // console.log(props.edit.value)
-  // console.log(input);
+  const { author, data, setReset } = props;
+  console.log("🚀 ~ file: BigBoard.js ~ line 16 ~ BigBoard ");
 
-  const handleChange = e => {
+  const [edit, setEdit] = useState({
+    id: null,
+    value: "",
+  });
+  const [input, setInput] = useState("");
+  const [load, setLoad] = useState(false);
+
+  const handleChange = (e) => {
     setInput(e.target.value);
-    console.log(input);
   };
 
-  return(
-    <>
-      { props.edit && props.data._id !== props.edit.id ? 
-        <Col key={props.data._id} md={3} style={{ padding: '10px' }}>
-          <Card style={{ width: '100%' }}>
-            <Link className="big-board-hover" exact to ={`/board/${props.author}/${props.data._id}`} >
-              <Card.Body >
-                <Card.Title style={{ textAlign: 'left', fontSize:'18px' }}>{props.data.name}</Card.Title>
-                <Container>
-                  <Card.Text>
-                    <Row>
-                      <Col key="1" style={{ textAlign: 'left', padding:'0px', color:"#999" }}>
-                        {props.data.date}
-                      </Col>
-                      <Col key="2" style={{ textAlign: 'right', padding:'0ps', color:"#999" }}>
-                        {" cards"}
-                      </Col>
-                    </Row>
-                  </Card.Text>
-                </Container>
-              </Card.Body>
-            </Link>
-            <Row >
-              <Col key="1" style={{ padding:"0px 0px 0px 15px" }}>
-                <Button 
-                  variant="outline-light" 
-                  onClick={() => props.editBigBoard(props.data._id, props.data.name)} 
-                  style={{ color:"purple", width:"100%", paddingRight:"0px" }}
-                >
-                  EDIT
-                </Button>
-              </Col> 
-              <Col key="2" style={{ padding:"0px 15px 0px 0px" }}>
-                <Button 
-                  variant="outline-light" 
-                  onClick={() => props.delBigBoard(props.data._id)}
-                  style={{ color:"purple", width:"100%", paddingRight:"0px" }}
-                >
-                  DELETE
-                </Button>
-              </Col> 
-            </Row>
-          </Card>
-        </Col>  
-      :
-        <Col key={props.data._id} md={3} style={{ padding: '10px' }}>
-          <Card style={{ width: '100%' }}>
-            <Card.Body >
-              <Card.Title style={{ textAlign: 'left', fontSize:'18px' }}>{props.data.name}</Card.Title>
-              <CardGroup>
-                <input 
-                  value={input} 
-                  style={{ width: "100%"}} 
-                  onChange={handleChange}
-                />
-              </CardGroup>
-            </Card.Body>
-            <Row >
-              <Col key="1" style={{ padding:"0px 0px 0px 15px" }}>
-                <Button 
-                  variant="outline-light" 
-                  onClick={() => props.doneBigBoard(props.data._id, input)} 
-                  style={{ color:"purple", width:"100%", paddingRight:"0px" }}
-                >
-                  DONE
-                </Button>
-              </Col> 
-              <Col key="2" style={{ padding:"0px 15px 0px 0px" }}>
-                <Button 
-                  variant="outline-light" 
-                  onClick={() => props.delBigBoard(props.data._id)}
-                  style={{ color:"purple", width:"100%", paddingRight:"0px" }}
-                >
-                  DELETE
-                </Button>
-              </Col> 
-            </Row>
-          </Card>
-        </Col>  
-      }
-      
-    </>
-  );
-} 
+  const editBigBoard = (id, data) => {
+    setEdit({
+      id: id,
+      value: data,
+    });
+  };
 
-export default BigBoard;
+  const delBigBoard = async (id) => {
+    try {
+      setLoad(true);
+      await bigBoardAPI.delete(id);
+      setReset((prevState) => !prevState);
+      setLoad(false);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: BigBoard.js ~ line 39 ~ delBigBoard ~ error",
+        error
+      );
+      setLoad(false);
+    }
+  };
+
+  const saveBigBoard = async (id, data) => {
+    setEdit({
+      id: null,
+      value: "",
+    });
+    try {
+      setLoad(true);
+      await bigBoardAPI.edit(id, { name: data });
+      setReset((prevState) => !prevState);
+      setLoad(false);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: BigBoard.js ~ line 59 ~ saveBigBoard ~ error",
+        error
+      );
+
+      setLoad(false);
+    }
+  };
+
+  const cancelBigBoard = () => {
+    setEdit({
+      id: null,
+      value: "",
+    });
+  };
+
+  return (
+    <Col className="link-custom p-2" md={3}>
+      <Loading isLoad={load} />
+      <Card>
+        {edit && data._id !== edit.id ? (
+          <Link className="link-custom" to={`/board/${author}/${data._id}`}>
+            <Card.Body>
+              <Card.Title className="text-left">{data.name}</Card.Title>
+              <Card.Text className="float-right">{data.date}</Card.Text>
+            </Card.Body>
+          </Link>
+        ) : (
+          <Card.Body>
+            <Card.Title className="text-left">{data.name}</Card.Title>
+            <CardGroup>
+              <input value={input} className="w-100" onChange={handleChange} />
+            </CardGroup>
+          </Card.Body>
+        )}
+        <div className="d-flex">
+          {edit && data._id !== edit.id ? (
+            <>
+              <Button
+                variant="primary"
+                onClick={() => editBigBoard(data._id, data.name)}
+                className="big-board-btn"
+              >
+                EDIT
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => delBigBoard(data._id)}
+                className="big-board-btn"
+              >
+                DELETE
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                variant="primary"
+                onClick={() => saveBigBoard(data._id, input)}
+                className="big-board-btn"
+              >
+                SAVE
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => cancelBigBoard()}
+                className="big-board-btn"
+              >
+                CANCEL
+              </Button>
+            </>
+          )}
+        </div>
+      </Card>
+    </Col>
+  );
+};
+
+export default memo(BigBoard);

@@ -1,61 +1,66 @@
-import React, {useEffect, useState} from 'react';
-import '../App.css';
+import React, { useEffect, useState } from "react";
+import "../App.css";
 
-import userAPI from '../api/user.api';
-
-
-import {Button, Navbar, InputGroup, Nav, Form, FormControl, Row, Col, Container } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import userAPI from "../api/user.api";
 
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-   
-const User = ({ match }) => {
-  const [input, setInput] = useState({email: '', pass: '', fullname:''}) 
+  Button,
+  Navbar,
+  InputGroup,
+  Nav,
+  Form,
+  FormControl,
+  Row,
+  Col,
+  Container,
+} from "react-bootstrap";
 
-  const handleChange = e => {
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+const User = ({ match }) => {
+  const [input, setInput] = useState({ email: "", pass: "", fullname: "" });
+
+  const handleChange = (e) => {
     setInput({
       ...input,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
     // console.log(input);
   };
-  
+
   useEffect(() => {
     const fetchAll = async () => {
       try {
         // console.log("id user: "+match.params.id)
         const res = await userAPI.get(match.params.id);
         // console.log("user info: "+res)
-        res.pass = '';
+        res.pass = "";
         setInput(res);
       } catch (error) {
-        console.log('Failed to fetch: ', error);
+        console.log("Failed to fetch: ", error);
       }
-    } 
+    };
     fetchAll();
-  }, [])
+  }, []);
 
   const editUser = async () => {
     // await console.log(input)
-    await userAPI.edit(match.params.id ,input);
-    alert('Bạn đã chỉnh sửa tài khoản thành công!');
+    await userAPI.edit(match.params.id, input);
+    alert("Bạn đã chỉnh sửa tài khoản thành công!");
   };
 
-  return(
+  return (
     <>
       <Container fluid>
         <Row>
           <Col md={3} lg={4}></Col>
           <Col md={6} lg={4}>
-            <Container style={{ backgroundColor: "white", padding: "2rem 2rem"}}>
+            <Container
+              style={{ backgroundColor: "white", padding: "2rem 2rem" }}
+            >
               <h3>Edit Profile</h3>
-              <Container >
-                <Row >
+              <Container>
+                <Row>
                   <InputGroup className="mb-3">
                     <FormControl
                       onChange={handleChange}
@@ -67,7 +72,7 @@ const User = ({ match }) => {
                     />
                   </InputGroup>
                 </Row>
-                <Row >
+                <Row>
                   <InputGroup className="mb-3">
                     <FormControl
                       onChange={handleChange}
@@ -79,7 +84,7 @@ const User = ({ match }) => {
                     />
                   </InputGroup>
                 </Row>
-                <Row >
+                <Row>
                   <InputGroup className="mb-3">
                     <FormControl
                       onChange={handleChange}
@@ -92,7 +97,7 @@ const User = ({ match }) => {
                     />
                   </InputGroup>
                 </Row>
-                <Row >
+                <Row>
                   <InputGroup className="mb-3">
                     <FormControl
                       onChange={handleChange}
@@ -104,17 +109,22 @@ const User = ({ match }) => {
                     />
                   </InputGroup>
                 </Row>
-                <Button onClick={() => editUser()} variant="primary" type="submit" style={{ width: "100%" }}>
+                <Button
+                  onClick={() => editUser()}
+                  variant="primary"
+                  type="submit"
+                  style={{ width: "100%" }}
+                >
                   Save
                 </Button>
               </Container>
-              <br/>
+              <br />
             </Container>
           </Col>
           <Col md={3} lg={4}></Col>
         </Row>
       </Container>
     </>
-  )
-}
-export default User
+  );
+};
+export default User;

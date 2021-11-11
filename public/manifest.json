@@ -1,0 +1,9 @@
+{
+  "short_name": "Small Trello",
+  "name": "Small Trello",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
