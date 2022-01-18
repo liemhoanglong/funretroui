@@ -1,38 +1,17 @@
-import React, { useEffect, useState } from "react";
-import {
-  Row,
-  Col,
-  Container,
-  InputGroup,
-  FormControl,
-  Button,
-} from "react-bootstrap";
+import React, { useEffect, useState, useCallback } from "react";
+import { Row, Col, Container } from "react-bootstrap";
+import { DragDropContext } from "react-beautiful-dnd";
 
-import Board from "../components/Board";
-
+import TypeBoard from "../components/TypeBoard";
 import bigBoardAPI from "../api/bigBoard.api";
 import boardAPI from "../api/board.api";
+import { TYPE_BOARD } from "../constants/typeBoards.constant";
 
 const BigBoardDetail = ({ match }) => {
-  console.log("🚀 ~ file: BigBoardDetail.js")
+  console.log("🚀 ~ file: BigBoardDetail.js");
   const [bigBoards, setBigBoards] = useState([]);
   const [boards, setBoards] = useState([]);
-  const [reset, setReset] = useState(true);
-  //input1, input2, input3
-  const [input, setInput] = useState("");
-  const [input2, setInput2] = useState("");
-  const [input3, setInput3] = useState("");
-  // console.log(match);
-
-  const handleChange = (e) => {
-    setInput(e.target.value);
-  };
-  const handleChange2 = (e) => {
-    setInput2(e.target.value);
-  };
-  const handleChange3 = (e) => {
-    setInput3(e.target.value);
-  };
+  const [reset, setReset] = useState(false);
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -60,119 +39,65 @@ const BigBoardDetail = ({ match }) => {
     fetchAll();
   }, [reset]);
 
-  const addBoard = async (txt, type) => {
-    if (!txt || /^\s*$/.test(txt)) {
-      return;
+  const onDragEnd = useCallback((result, columns, setColumns) => {
+    if (!result.destination) return;
+    const { source, destination } = result;
+    if (source.droppableId !== destination.droppableId) {
+      const sourceColumn = columns[source.droppableId];
+      const destColumn = columns[destination.droppableId];
+      const sourceItems = [...sourceColumn.items];
+      const destItems = [...destColumn.items];
+      const [removed] = sourceItems.splice(source.index, 1);
+      destItems.splice(destination.index, 0, removed);
+      setColumns({
+        ...columns,
+        [source.droppableId]: {
+          ...sourceColumn,
+          items: sourceItems,
+        },
+        [destination.droppableId]: {
+          ...destColumn,
+          items: destItems,
+        },
+      });
+    } else {
+      const column = columns[source.droppableId];
+      const copiedItems = [...column.items];
+      const [removed] = copiedItems.splice(source.index, 1);
+      copiedItems.splice(destination.index, 0, removed);
+      setColumns({
+        ...columns,
+        [source.droppableId]: {
+          ...column,
+          items: copiedItems,
+        },
+      });
     }
-    const data = { name: txt, type: type, like: 0, boardId: match.params.id };
-    await boardAPI.add(data);
-    setReset(!reset);
-  };
+  }, []);
 
   return (
     <>
       <h1>{bigBoards.name}</h1>
       <Container fluid style={{ padding: "30px 40px" }}>
         <Row>
-          <Col>
-            <Container>
-              <center>
-                <h5>Went well</h5>
-              </center>
-              <Row className='mb-2'>
-                <InputGroup className="mb-3">
-                  <FormControl
-                    placeholder="abc"
-                    value={input}
-                    onChange={handleChange}
-                    aria-label="abc"
-                    aria-describedby="basic-addon2"
-                  />
-                  <Button
-                    onClick={() => addBoard(input, 1)}
-                    variant="outline-secondary"
-                  >
-                    Add
-                  </Button>
-                </InputGroup>
-              </Row>
-              {boards.filter(board=>board.type === 1).map((board, i) => {
-                return (
-                  <Board
-                    key={i}
-                    data={board}
+          <DragDropContext
+            onDragEnd={(result) => onDragEnd(result, bigBoards, setBigBoards)}
+          >
+            {TYPE_BOARD.map((type) => (
+              <Col key={type.id}>
+                <Container>
+                  <center>
+                    <h5>{type.name}</h5>
+                  </center>
+                  <TypeBoard
+                    boards={boards}
                     setReset={setReset}
+                    type={type.id}
                   />
-                );
-              })}
-            </Container>
-          </Col>
-          <Col>
-            <Container>
-              <center>
-                <h5>To improve</h5>
-              </center>
-              <Row className='mb-2'>
-                <InputGroup className="mb-3">
-                  <FormControl
-                    placeholder="abc"
-                    value={input2}
-                    onChange={handleChange2}
-                    aria-label="abc"
-                    aria-describedby="basic-addon2"
-                  />
-                  <Button
-                    onClick={() => addBoard(input2, 2)}
-                    variant="outline-secondary"
-                  >
-                    Add
-                  </Button>
-                </InputGroup>
-              </Row>
-              {boards.filter(board=>board.type === 2).map((board, i) => {
-                return (
-                  <Board
-                    key={i}
-                    data={board}
-                    setReset={setReset}
-                  />
-                );
-              })}
-            </Container>
-          </Col>
-          <Col>
-            <Container>
-              <center>
-                <h5>Action Items</h5>
-              </center>
-              <Row className='mb-2'>
-                <InputGroup className="mb-3">
-                  <FormControl
-                    placeholder="abc"
-                    value={input3}
-                    onChange={handleChange3}
-                    aria-label="abc"
-                    aria-describedby="basic-addon2"
-                  />
-                  <Button
-                    onClick={() => addBoard(input3, 3)}
-                    variant="outline-secondary"
-                  >
-                    Add
-                  </Button>
-                </InputGroup>
-              </Row>
-              {boards.filter(board=>board.type === 3).map((board, i) => {
-                return (
-                  <Board
-                    key={i}
-                    data={board}                    
-                    setReset={setReset}
-                  />
-                );
-              })}
-            </Container>
-          </Col>
+                </Container>
+              </Col>
+            ))}
+          </DragDropContext>
         </Row>
       </Container>
     </>
